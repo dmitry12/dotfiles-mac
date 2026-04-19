@@ -201,6 +201,13 @@ else
 fi
 sleep 2
 
+# -------- macOS Defaults --------
+info "Configuring macOS defaults..."
+# Auto-hide the macOS menu bar
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+# (Optional) You may need to run 'killall SystemUIServer' for it to take effect immediately, but a logout/restart will also apply it.
+ok "macOS defaults configured (menu bar hidden)."
+
 # -------- Final Instructions & Reload --------
 info "--- 🦾 MANUAL STEPS REQUIRED ---"
 echo ""

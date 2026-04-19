@@ -1,6 +1,6 @@
-# **robsteriam Dotfiles**
+# **Mac dotfiles**
 
-These are the personal configuration files for my macOS setup, designed for a keyboard driven workflow. This is a work in progress and will constantly change over time. I'm having fun, enjoying the process and learning.
+Forked robsteriam dotfiles configuration with custom setup.
 
 Explore the documentation on the **[Wiki](https://github.com/robsteriam/dotfiles-public/wiki)** or see it in action in the video demo below.
 

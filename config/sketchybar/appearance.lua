@@ -150,7 +150,7 @@ M.styles = {
 		label = {
 			color = M.colors.active.mauve,
 			highlight_color = M.colors.active.peach,
-			font = "sketchybar-app-font:Regular:16.0",
+			font = "sketchybar-app-font:Regular:12.0",
 			padding_left = 2,
 			padding_right = 12,
 			y_offset = -1,
@@ -164,14 +164,14 @@ sbar.default({
 	-- Default background properties for the main bar
 	background = {
 		border_color = M.colors.macchiato.surface0,
-		border_width = 3,
+		border_width = 2,
 		color = M.colors.bg4, -- controls colors for icons
 		corner_radius = 0,
 		height = 32,
 		image = {
 			corner_radius = 9,
 			border_color = M.colors.white,
-			border_width = 1,
+			border_width = 0,
 		},
 	},
 	-- Default properties for all icons (e.g., apple, calendar, widgets)

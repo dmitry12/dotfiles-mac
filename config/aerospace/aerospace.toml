@@ -56,39 +56,33 @@ preset = 'qwerty'
 [gaps]
 inner.horizontal = [
   { monitor."Built-in Retina Display" = 5 },
-  { monitor."LC49G95T" = 7 },
-  { monitor."LEN T2424zA" = 7 },
+  { monitor."LG ULTRAWIDE" = 7 },
   5,
 ]
 inner.vertical = [
   { monitor."Built-in Retina Display" = 5 },
-  { monitor."LC49G95T" = 5 },
+  { monitor."LG ULTRAWIDE" = 5 },
   { monitor."LEN T2424zA" = 5 },
   5,
 ]
 outer.left = [
   { monitor."Built-in Retina Display" = 5 },
-  { monitor."LC49G95T" = 5 },
-  { monitor."LEN T2424zA" = 5 },
+  { monitor."LG ULTRAWIDE" = 5 },
   5,
 ]
 outer.bottom = [
   { monitor."Built-in Retina Display" = 5 },
-  { monitor."LC49G95T" = 5 },
-  { monitor."LEN T2424zA" = 5 },
+  { monitor."LG ULTRAWIDE" = 5 },
   5,
 ]
 outer.top = [
   { monitor."Built-in Retina Display" = 4 },
-  { monitor."LC49G95T" = 40 },
-  { monitor."LEN T2424zA" = 40 },
-  { monitor."Ripsaw HD" = 40 },
+  { monitor."LG ULTRAWIDE" = 40 },
   5,
 ]
 outer.right = [
   { monitor."Built-in Retina Display" = 5 },
-  { monitor."LC49G95T" = 5 },
-  { monitor."LEN T2424zA" = 5 },
+  { monitor."LG ULTRAWIDE" = 5 },
   5,
 ]
 
