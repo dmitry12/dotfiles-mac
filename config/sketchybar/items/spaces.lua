@@ -3,17 +3,17 @@ local app_icons = require("helpers.app_icons")
 local sbar = require("sketchybar")
 
 local workspace_names = {
-	["1"] = "www",
-	["2"] = "c",
-	["3"] = "t",
-	["4"] = "COM",
-	["5"] = "AI",
-	["6"] = "Work",
-	["7"] = "CS",
-	["8"] = "8",
-	["9"] = "9",
-	["Q"] = "obs",
-	["C"] = "cur",
+	["1"] = "🌍",
+	["2"] = "💻",
+	["3"] = "💾",
+	["4"] = "💬",
+	["5"] = "👹",
+	["6"] = "👾",
+	["7"] = "⺟",
+	["8"] = "⺟",
+	["9"] = "🛰️",
+	["Q"] = "📒",
+	["C"] = "🗿",
 }
 
 local query_workspaces =

@@ -57,6 +57,8 @@ alias vnc="open /Applications/VNC\ Viewer.app"
 alias zoom="open /Applications/zoom.us.app"
 alias py="python3"
 
+alias vim="nvim"
+
 # Aliases
 alias c='clear'
 alias h='history'
@@ -97,6 +99,16 @@ alias gb='git branch'
 alias gl='git log --oneline'
 alias gpom='git push origin main'
 
+alias gs="git status"
+alias gc="git commit"
+alias gd="git diff -w"
+alias gdc="git diff --cached -w"
+alias ga="git add"
+alias gco="git checkout"
+alias gg="git grep"
+alias grh="git reset HEAD"
+alias gpl="git pull"
+
 # Navigation
 alias onedrive="cd /Users/robsteriam/Library/CloudStorage/OneDrive-Personal"
 alias dotfiles="cd /Users/robsteriam/dotfiles"
@@ -111,3 +123,5 @@ command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 # ZSH Custom Options (platform-specific plugin paths)
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+. ~/dev/repos/z/z.sh
