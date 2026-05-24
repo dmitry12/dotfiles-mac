@@ -158,6 +158,28 @@ M.styles = {
 	},
 }
 
+-- Role colors for workspace groups (lid-open layout)
+M.roles = {
+	peripheral = {
+		color = M.colors.macchiato.surface0,
+		highlight_color = M.colors.macchiato.surface2,
+		icon_color = M.colors.macchiato.subtext0,
+		icon_highlight_color = M.colors.macchiato.text,
+	},
+	focal = {
+		color = M.colors.macchiato.surface0,
+		highlight_color = M.colors.macchiato.peach,
+		icon_color = M.colors.macchiato.peach,
+		icon_highlight_color = M.colors.macchiato.text,
+	},
+	active = {
+		color = M.colors.macchiato.surface0,
+		highlight_color = M.colors.macchiato.teal,
+		icon_color = M.colors.macchiato.teal,
+		icon_highlight_color = M.colors.macchiato.text,
+	},
+}
+
 -- Sets the global default properties for all items in sketchybar.
 -- Individual items can override these.
 sbar.default({

@@ -16,6 +16,18 @@ local workspace_names = {
 	["C"] = "🗿",
 }
 
+local workspace_role = {
+	["1"] = "peripheral",
+	["2"] = "active",
+	["3"] = "focal",
+	["4"] = "peripheral",
+	["5"] = "active",
+	["6"] = "focal",
+	["7"] = "focal",
+	["8"] = "active",
+	["9"] = "peripheral",
+}
+
 local query_workspaces =
 	"aerospace list-workspaces --all --format '%{workspace}%{monitor-appkit-nsscreen-screens-id}' --json"
 
@@ -156,21 +168,22 @@ end
 sbar.exec(query_workspaces, function(workspaces_and_monitors)
 	for _, entry in ipairs(workspaces_and_monitors) do
 		local workspace_index = entry.workspace
+		local role = appearance.roles[workspace_role[workspace_index]]
 		local style = appearance.styles.workspace
 
 		local workspace = sbar.add("item", "workspace." .. workspace_index, {
 			background = {
-				color = style.background.color,
-				border_color = style.background.color,
-				border_width = 0,
+				color = role.color,
+				border_color = role.color,
+				border_width = 1,
 				corner_radius = 6,
 				drawing = true,
 			},
 			click_script = "aerospace workspace " .. workspace_index,
-			drawing = false, -- Hide all items at first
+			drawing = false,
 			icon = {
-				color = style.icon.color,
-				highlight_color = style.icon.highlight_color,
+				color = role.icon_color,
+				highlight_color = role.icon_highlight_color,
 				font = style.icon.font,
 				padding_left = style.icon.padding_left,
 				padding_right = style.icon.padding_right,
@@ -201,8 +214,9 @@ sbar.exec(query_workspaces, function(workspaces_and_monitors)
 					label = { highlight = is_focused },
 					blur_radius = 30,
 					background = {
-						border_color = is_focused and 0xffEB212E or style.background.color,
-						border_width = is_focused and 3 or 0,
+						color = is_focused and role.highlight_color or role.color,
+						border_color = is_focused and role.highlight_color or role.color,
+						border_width = is_focused and 0 or 1,
 					},
 				})
 			end)
@@ -230,12 +244,14 @@ sbar.exec(query_workspaces, function(workspaces_and_monitors)
 
 	sbar.exec("aerospace list-workspaces --focused", function(focused_workspace)
 		focused_workspace = focused_workspace:match("^%s*(.-)%s*$")
+		local role = appearance.roles[workspace_role[focused_workspace]]
 		workspaces[focused_workspace]:set({
 			icon = { highlight = true },
 			label = { highlight = true },
 			background = {
-				border_color = 0xffEB212E,
-				border_width = 3,
+				color = role.highlight_color,
+				border_color = role.highlight_color,
+				border_width = 0,
 			},
 		})
 	end)
