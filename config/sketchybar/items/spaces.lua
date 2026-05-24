@@ -159,7 +159,13 @@ sbar.exec(query_workspaces, function(workspaces_and_monitors)
 		local style = appearance.styles.workspace
 
 		local workspace = sbar.add("item", "workspace." .. workspace_index, {
-			background = style.background,
+			background = {
+				color = style.background.color,
+				border_color = style.background.color,
+				border_width = 0,
+				corner_radius = 6,
+				drawing = true,
+			},
 			click_script = "aerospace workspace " .. workspace_index,
 			drawing = false, -- Hide all items at first
 			icon = {
@@ -194,6 +200,10 @@ sbar.exec(query_workspaces, function(workspaces_and_monitors)
 					icon = { highlight = is_focused },
 					label = { highlight = is_focused },
 					blur_radius = 30,
+					background = {
+						border_color = is_focused and 0xffEB212E or style.background.color,
+						border_width = is_focused and 3 or 0,
+					},
 				})
 			end)
 		end)
@@ -223,6 +233,10 @@ sbar.exec(query_workspaces, function(workspaces_and_monitors)
 		workspaces[focused_workspace]:set({
 			icon = { highlight = true },
 			label = { highlight = true },
+			background = {
+				border_color = 0xffEB212E,
+				border_width = 3,
+			},
 		})
 	end)
 end)

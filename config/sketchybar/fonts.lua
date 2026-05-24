@@ -2,7 +2,7 @@ return {
 	font = {
 		text = "SF Pro",
 		numbers = "SF Pro",
-		size = 15.0,
+		size = 12.0,
 		style_map = {
 			["Regular"] = "Regular",
 			["Semibold"] = "Semibold",
@@ -14,7 +14,7 @@ return {
 	font_icon = {
 		text = "Hack Nerd Font",
 		numbers = "Hack Nerd Font",
-		size = 15.0,
+		size = 12.0,
 		style_map = {
 			["Regular"] = "Regular",
 			["Semibold"] = "Semibold",
@@ -39,7 +39,7 @@ return {
 	font_heavy = {
 		text = "HeavyData Nerd Font",
 		numbers = "HeavyData Nerd Font",
-		size = 19.0,
+		size = 15.0,
 		style_map = {
 			["Regular"] = "Regular",
 		},

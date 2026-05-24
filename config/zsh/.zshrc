@@ -125,3 +125,19 @@ source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 . ~/dev/repos/z/z.sh
+
+# bun completions
+[ -s "/Users/dim/.bun/_bun" ] && source "/Users/dim/.bun/_bun"
+
+# pnpm
+export PNPM_HOME="/Users/dim/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+# opencode
+export PATH=/Users/dim/.opencode/bin:$PATH
+
+. "$HOME/.local/bin/env"

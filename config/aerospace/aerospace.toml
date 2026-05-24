@@ -54,37 +54,12 @@ preset = 'qwerty'
 # NOTE: The last value in each list (e.g., '5') is the fallback for any monitor not explicitly named.
 
 [gaps]
-inner.horizontal = [
-  { monitor."Built-in Retina Display" = 5 },
-  { monitor."LG ULTRAWIDE" = 7 },
-  5,
-]
-inner.vertical = [
-  { monitor."Built-in Retina Display" = 5 },
-  { monitor."LG ULTRAWIDE" = 5 },
-  { monitor."LEN T2424zA" = 5 },
-  5,
-]
-outer.left = [
-  { monitor."Built-in Retina Display" = 5 },
-  { monitor."LG ULTRAWIDE" = 5 },
-  5,
-]
-outer.bottom = [
-  { monitor."Built-in Retina Display" = 5 },
-  { monitor."LG ULTRAWIDE" = 5 },
-  5,
-]
-outer.top = [
-  { monitor."Built-in Retina Display" = 4 },
-  { monitor."LG ULTRAWIDE" = 40 },
-  5,
-]
-outer.right = [
-  { monitor."Built-in Retina Display" = 5 },
-  { monitor."LG ULTRAWIDE" = 5 },
-  5,
-]
+inner.horizontal = 5
+inner.vertical = 5
+outer.left = 5
+outer.bottom = 5
+outer.top = 45
+outer.right = 5
 
 # 'main' binding mode declaration
 # 'main' binding mode must be always presented
@@ -173,8 +148,8 @@ alt-shift-semicolon = 'mode service'
 # C = 'LEN T2424zA'
 # D = 'LEN T2424zA'
 
-A = 'Retina Built-in Display'
-B = 'LG ULTRAWIDE'
+A = 1
+B = 3
 
 # 'service' binding mode declaration.
 # NOTE: This mode is activated by pressing 'alt-shift-semicolon'. It contains less common commands.

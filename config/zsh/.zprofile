@@ -4,3 +4,6 @@ if [[ "$(uname)" == "Darwin" ]]; then
         eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null)"
     fi
 fi
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
