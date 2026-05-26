@@ -93,11 +93,8 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # Normalizations
+alt-ctrl-h = 'split horizontal'
 alt-ctrl-v = 'split vertical'
-
-# Focus monitor left/right
-alt-ctrl-h = 'focus-monitor --wrap-around left'
-alt-ctrl-l = 'focus-monitor --wrap-around right'
 alt-f = 'macos-native-fullscreen'
 alt-s = 'layout v_accordion'
 alt-w = 'layout h_accordion'
@@ -144,19 +141,6 @@ alt-shift-semicolon = 'mode service'
 # Run 'aerospace list-monitors' to find the name.
 # NOTE: This forces workspaces A, B, C, and D to always appear on a specific monitor.
 
-# See: https://nikitabobko.github.io/AeroSpace/guide#assign-to-workspaces-to-monitors
-[workspace-to-monitor-force-assignment]
-# Lid-open layout: main (monitor 1), built-in (monitor 2), secondary (monitor 3)
-1 = 1  # main
-2 = 3  # secondary
-3 = 2  # built-in
-4 = 1  # main
-5 = 3  # secondary
-6 = 2  # built-in
-7 = 2  # built-in
-8 = 3  # secondary
-9 = 1  # main
-
 # 'service' binding mode declaration.
 # NOTE: This mode is activated by pressing 'alt-shift-semicolon'. It contains less common commands.
 # Press 'esc' to return to 'main' mode.
@@ -188,49 +172,49 @@ shift-down = ['volume set 0', 'mode main']
 # Use 'aerospace list-apps' to find the 'app-id' and 'app-name' for your own applications.
 # Format of 'aerospace list-apps': Process ID | App ID | App Name
 
-# App → workspace routing for lid-open layout
-
+# TODO: Add your own utility apps here that you always want to float.
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome'
-run = ['move-node-to-workspace 1']
-
-[[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = ['move-node-to-workspace 2']
-
-[[on-window-detected]]
-if.app-id = 'com.anthropic.claudefordesktop'
-run = ['move-node-to-workspace 3']
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'Slack'
-run = ['move-node-to-workspace 4']
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.VSCode'
-run = ['move-node-to-workspace 5']
-
-[[on-window-detected]]
-if.app-id = 'com.google.antigravity'
-run = ['move-node-to-workspace 5']
-
-[[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = ['move-node-to-workspace 6']
-
-# Float utility windows
-[[on-window-detected]]
-if.app-name-regex-substring = 'SFSymbols|Finder|Microsoft AutoUpdate|Activity Monitor|ImageOptim|AppCleaner'
+if.app-name-regex-substring = 'SFSymbols|Finder|Microsoft AutoUpdate|Activity Monitor|ImageOptim|AppCleaner|parentapp'
 run = ['layout floating']
 
-# Clamshell variant (comment/uncomment to toggle):
-# [workspace-to-monitor-force-assignment]
-# 1 = 1  # main
-# 2 = 3  # secondary
-# 3 = 1  # main
-# 4 = 1  # main
-# 5 = 3  # secondary
-# 6 = 3  # secondary
-# 7 = 1  # main
-# 8 = 3  # secondary
-# 9 = 1  # main
+[[on-window-detected]]
+if.app-id = "com.mitchellh.ghostty"
+run = ["layout tiling"]
+
+# TODO: Customize or delete the following app-to-workspaces rules to match your workflow.
+
+# Move to Workspace 4 - Editing
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Final Cut Pro|OBS Studio|Motion|Compressor'
+run = ['move-node-to-workspace 4']
+
+# Move to Workspace 5 - Gaming
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'NVIDIA|Boosteroid'
+run = ['move-node-to-workspace 5']
+
+# Move to Workspace 6 - Work/Office Apps
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Microsoft Edge|Microsoft Teams|Microsoft Outlook'
+run = ['move-node-to-workspace 6']
+
+# Move to Workspace A - Code editors and development tools.
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Code|Zen'
+run = ['move-node-to-workspace A']
+
+# Move to Workspace B - Messaging Apps.
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Messages|Signal'
+run = ['move-node-to-workspace B']
+
+# Move to Workspace C - Social/Chat Apps.
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'WhatsApp|Discord'
+run = ['move-node-to-workspace C']
