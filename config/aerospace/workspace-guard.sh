@@ -13,8 +13,9 @@ state="${TMPDIR:-/tmp}/aerospace-workspace-guard"
 # Latest keypress wins: newer guard instances overwrite this and older ones exit.
 echo "$ws" >"$state"
 
-for delay in 0.7 0.6 0.6; do
-  sleep "$delay"
+# Poll fast so the correction is near-instant; cover the whole ~2.5s steal window.
+for _ in $(seq 1 16); do
+  sleep 0.15
   [ "$(cat "$state" 2>/dev/null)" = "$ws" ] || exit 0
   focused="$($AEROSPACE list-workspaces --focused)"
   [ "$focused" = "$ws" ] && continue
