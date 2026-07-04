@@ -57,7 +57,7 @@ inner.horizontal = [{ monitor.main = 5 }, 5]
 inner.vertical = [{ monitor.main = 5 }, 5]
 outer.left = [{ monitor.main = 5 }, 5]
 outer.bottom = [{ monitor.main = 5 }, 5]
-outer.top = [{ monitor.main = 41 }, 5]
+outer.top = [{ monitor."DELL U3417W" = 37 }, { monitor."Built-in Retina Display" = 8 }, 5]
 outer.right = [{ monitor.main = 5 }, 5]
 
 # 'main' binding mode declaration
@@ -66,14 +66,12 @@ outer.right = [{ monitor.main = 5 }, 5]
 # NOTE: This config uses 'alt' as the main modifier key (Mod Key).
 
 [mode.main.binding]
-alt-a = 'workspace A'
-alt-b = 'workspace B'
-alt-c = 'workspace C'
-alt-d = 'workspace D'
-alt-shift-a = ['move-node-to-workspace A', 'workspace A']
-alt-shift-b = ['move-node-to-workspace B', 'workspace B']
-alt-shift-c = ['move-node-to-workspace C', 'workspace C']
-alt-shift-d = ['move-node-to-workspace D', 'workspace D']
+alt-b = ['workspace B', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh B']
+alt-c = ['workspace C', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh C']
+alt-d = ['workspace D', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh D']
+alt-shift-b = ['move-node-to-workspace B', 'workspace B', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh B']
+alt-shift-c = ['move-node-to-workspace C', 'workspace C', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh C']
+alt-shift-d = ['move-node-to-workspace D', 'workspace D', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh D']
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-slash = 'layout tiles horizontal vertical'
@@ -100,36 +98,45 @@ alt-w = 'layout h_accordion'
 alt-e = 'layout tiles horizontal vertical'
 alt-shift-space = 'layout floating tiling'
 
+# Toggle sketchybar visibility + collapse/restore its reserved gap
+alt-shift-x = 'exec-and-forget ~/dotfiles/config/aerospace/toggle-bar.sh'
+
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
-alt-9 = 'workspace 9'
-alt-q = 'workspace q'
+alt-backtick = ['workspace 10', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 10'] # laptop built-in display workspace
+alt-shift-backtick = ['move-node-to-workspace 10', 'workspace 10', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 10']
+alt-1 = ['workspace 1', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 1']
+alt-2 = ['workspace 2', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 2']
+alt-3 = ['workspace 3', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 3']
+alt-4 = ['workspace 4', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 4']
+alt-5 = ['workspace 5', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 5']
+alt-6 = ['workspace 6', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 6']
+alt-7 = ['workspace 7', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 7']
+alt-8 = ['workspace 8', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 8']
+alt-9 = ['workspace 9', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 9']
+alt-q = ['workspace q', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh q']
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1']
-alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2']
-alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3']
-alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4']
-alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5']
-alt-shift-6 = ['move-node-to-workspace 6', 'workspace 6']
-alt-shift-7 = ['move-node-to-workspace 7', 'workspace 7']
-alt-shift-8 = ['move-node-to-workspace 8', 'workspace 8']
-alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9']
-alt-shift-q = ['move-node-to-workspace q', 'workspace q']
+alt-shift-1 = ['move-node-to-workspace 1', 'workspace 1', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 1']
+alt-shift-2 = ['move-node-to-workspace 2', 'workspace 2', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 2']
+alt-shift-3 = ['move-node-to-workspace 3', 'workspace 3', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 3']
+alt-shift-4 = ['move-node-to-workspace 4', 'workspace 4', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 4']
+alt-shift-5 = ['move-node-to-workspace 5', 'workspace 5', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 5']
+alt-shift-6 = ['move-node-to-workspace 6', 'workspace 6', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 6']
+alt-shift-7 = ['move-node-to-workspace 7', 'workspace 7', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 7']
+alt-shift-8 = ['move-node-to-workspace 8', 'workspace 8', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 8']
+alt-shift-9 = ['move-node-to-workspace 9', 'workspace 9', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh 9']
+alt-shift-q = ['move-node-to-workspace q', 'workspace q', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh q']
+
+# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+cmd-left = 'workspace --wrap-around prev'
+cmd-right = 'workspace --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-alt-tab = 'workspace-back-and-forth'
+alt-tab = ['workspace-back-and-forth', 'exec-and-forget /Users/dim/dotfiles/config/aerospace/workspace-guard.sh']
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
@@ -138,13 +145,20 @@ alt-shift-semicolon = 'mode service'
 
 # NOTE: Main workspaces are pinned to the UW ultrawide. Secondary workspaces stay on the laptop display.
 [workspace-to-monitor-force-assignment]
-A = 'main'
 B = 'main'
 C = 'main'
 D = 'main'
+1 = 'main'
+2 = 'main'
+3 = 'main'
 4 = 'main'
 5 = 'main'
 6 = 'main'
+7 = 'main'
+8 = 'main'
+9 = 'main'
+q = 'main'
+10 = 'secondary' # laptop built-in display
 
 # 'service' binding mode declaration.
 # NOTE: This mode is activated by pressing 'alt-shift-semicolon'. It contains less common commands.
@@ -205,12 +219,6 @@ run = ['move-node-to-workspace 5']
 [[on-window-detected]]
 if.app-name-regex-substring = 'Microsoft Edge|Microsoft Teams|Microsoft Outlook'
 run = ['move-node-to-workspace 6']
-
-# Move to Workspace A - Code editors and development tools.
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'Code|Zen'
-run = ['move-node-to-workspace A']
 
 # Move to Workspace B - Messaging Apps.
 
