@@ -202,10 +202,10 @@ run = ["layout tiling"]
 
 # TODO: Customize or delete the following app-to-workspaces rules to match your workflow.
 
-# Move to Workspace 4 - Editing
+# Move to Workspace 4 - Editing + Messaging
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'Final Cut Pro|OBS Studio|Motion|Compressor'
+if.app-name-regex-substring = 'Final Cut Pro|OBS Studio|Motion|Compressor|Discord|Telegram'
 run = ['move-node-to-workspace 4']
 
 # Move to Workspace 5 - Gaming
@@ -229,5 +229,5 @@ run = ['move-node-to-workspace B']
 # Move to Workspace C - Social/Chat Apps.
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'WhatsApp|Discord'
+if.app-name-regex-substring = 'WhatsApp'
 run = ['move-node-to-workspace C']
