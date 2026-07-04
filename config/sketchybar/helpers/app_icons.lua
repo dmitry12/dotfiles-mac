@@ -262,7 +262,7 @@ return {
 	["sioyek"] = ":sioyek:",
 	["Sketch"] = ":sketch:",
 	["Skype"] = ":skype:",
-	["Slack"] = ":slack:",
+
 	["Spark Desktop"] = ":spark:",
 	["Spotify"] = ":spotify:",
 	["Spotlight"] = ":spotlight:",
@@ -272,6 +272,7 @@ return {
 	["TeamSpeak 3"] = ":team_speak:",
 	["Telegram"] = ":telegram:",
 	["Terminal"] = ":terminal:",
+	["ChatGPT"] = ":chatgpt:",
 	["终端"] = ":terminal:",
 	["Typora"] = ":text:",
 	["Microsoft To Do"] = ":things:",
