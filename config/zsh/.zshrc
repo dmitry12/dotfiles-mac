@@ -137,7 +137,8 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# opencode
-export PATH=/Users/dim/.opencode/bin:$PATH
 
 . "$HOME/.local/bin/env"
+
+# Created by `pipx` on 2026-05-28 19:09:30
+export PATH="$PATH:/Users/dim/Library/Python/3.14/bin"

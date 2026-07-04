@@ -7,3 +7,6 @@ fi
 
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Created by `pipx` on 2026-05-28 19:09:30
+export PATH="$PATH:/Users/dim/Library/Python/3.14/bin"
