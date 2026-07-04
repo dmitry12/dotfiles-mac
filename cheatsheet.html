@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>macOS Dotfiles Cheatsheet</title>
+<style>
+  :root {
+    --base: #1e1e2e;
+    --mantle: #181825;
+    --crust: #11111b;
+    --surface0: #313244;
+    --surface1: #45475a;
+    --surface2: #585b70;
+    --text: #cdd6f4;
+    --subtext0: #a6adc8;
+    --overlay0: #6c7086;
+    --blue: #89b4fa;
+    --lavender: #b4befe;
+    --green: #a6e3a1;
+    --teal: #94e2d5;
+    --yellow: #f9e2af;
+    --peach: #fab387;
+    --maroon: #eba0ac;
+    --red: #f38ba8;
+    --mauve: #cba6f7;
+    --flamingo: #f2cdcd;
+    --pink: #f5c2e7;
+    --rosewater: #f5e0dc;
+    --radius: 10px;
+    --font: 'SF Mono', 'SFMono-Regular', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--crust);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 20px;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 32px 0 24px;
+    border-bottom: 2px solid var(--surface0);
+    margin-bottom: 28px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--mauve), var(--blue), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header p { color: var(--subtext0); margin-top: 6px; font-size: 14px; }
+  .header .badge {
+    display: inline-block;
+    background: var(--surface0);
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--overlay0);
+    margin-top: 8px;
+  }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 18px;
+  }
+
+  /* Card */
+  .card {
+    background: var(--base);
+    border: 1px solid var(--surface0);
+    border-radius: var(--radius);
+    overflow: hidden;
+    break-inside: avoid;
+  }
+  .card:hover { border-color: var(--surface1); }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--mantle);
+    border-bottom: 1px solid var(--surface0);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .card-header .icon { font-size: 18px; }
+  .card-body { padding: 10px 16px 14px; }
+
+  /* Key-value rows */
+  .kv { display: flex; align-items: baseline; padding: 3px 0; gap: 8px; }
+  .kv .k {
+    color: var(--peach);
+    font-weight: 500;
+    white-space: nowrap;
+    min-width: fit-content;
+    font-size: 12px;
+  }
+  .kv .v { color: var(--subtext0); font-size: 12px; word-break: break-word; }
+  .kv .v .hl { color: var(--green); }
+  .kv .v .dim { color: var(--overlay0); }
+
+  /* Tables */
+  .shortcut-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .shortcut-table th {
+    text-align: left;
+    padding: 4px 6px;
+    color: var(--overlay0);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--surface0);
+  }
+  .shortcut-table td { padding: 4px 6px; border-bottom: 1px solid var(--surface0); }
+  .shortcut-table tr:last-child td { border-bottom: none; }
+  .shortcut-table .key {
+    display: inline-block;
+    background: var(--surface0);
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    font-family: var(--font);
+  }
+  .shortcut-table .key.mod {
+    background: var(--surface1);
+    color: var(--lavender);
+  }
+  .shortcut-table .action { color: var(--subtext0); }
+
+  /* Alias table */
+  .alias-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .alias-table th {
+    text-align: left;
+    padding: 3px 6px;
+    color: var(--overlay0);
+    font-weight: 500;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--surface0);
+  }
+  .alias-table td { padding: 3px 6px; border-bottom: 1px solid var(--surface0); font-size: 12px; }
+  .alias-table tr:last-child td { border-bottom: none; }
+  .alias-table .alias {
+    color: var(--green);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .alias-table .cmd {
+    color: var(--subtext0);
+    font-family: var(--font);
+    font-size: 11px;
+  }
+
+  /* Section groupings */
+  .section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--overlay0);
+    margin: 10px 0 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--surface0);
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+  }
+
+  /* Badge for tool descriptions */
+  .tool-desc { color: var(--overlay0); font-size: 11px; margin-bottom: 8px; }
+
+  /* Copy button */
+  .copy-btn {
+    float: right;
+    background: none;
+    border: 1px solid var(--surface0);
+    color: var(--overlay0);
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    cursor: pointer;
+    font-family: var(--font);
+  }
+  .copy-btn:hover { border-color: var(--surface1); color: var(--text); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>~/.dotfiles &mdash; Keyboard Workflow Cheatsheet</h1>
+  <p>macOS development environment &middot; Catppuccin-themed &middot; keyboard-driven</p>
+  <span class="badge">Alt &rarr; Mod key (Aerospace) &middot; Cmd &rarr; Mod key (Kitty/Ghostty) &middot; Ctrl-b &rarr; tmux prefix</span>
+</div>
+
+<div class="grid">
+
+<!-- ============================================================ -->
+<!-- AEROSPACE -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x25A6;</span> Aerospace &mdash; Tiling WM</div>
+  <div class="card-body">
+    <div class="tool-desc">Tiling window manager. Mod key: <span class="key" style="font-size:11px">Alt</span></div>
+
+    <div class="section-title">Workspace Switching</div>
+    <table class="shortcut-table">
+      <tr><th>Keys</th><th>Action</th></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">1-9</span></td><td class="action">Go to workspace 1-9</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">a</span> / <span class="key">b</span> / <span class="key">q</span></td><td class="action">Go to workspace A / B / Q</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Tab</span></td><td class="action">Workspace back-and-forth</td></tr>
+    </table>
+
+    <div class="section-title">Move Window to Workspace</div>
+    <table class="shortcut-table">
+      <tr><th>Keys</th><th>Action</th></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Shift</span> <span class="key">1-9</span></td><td class="action">Move to workspace 1-9 + switch</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Shift</span> <span class="key">a</span> / <span class="key">b</span> / <span class="key">q</span></td><td class="action">Move to workspace A / B / Q + switch</td></tr>
+    </table>
+
+    <div class="section-title">Vim-style Focus</div>
+    <table class="shortcut-table">
+      <tr><th>Keys</th><th>Action</th></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">h</span></td><td class="action">Focus left</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">j</span></td><td class="action">Focus down</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">k</span></td><td class="action">Focus up</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">l</span></td><td class="action">Focus right</td></tr>
+    </table>
+
+    <div class="section-title">Move Windows (Vim-style)</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Alt</span> <span class="key">Shift</span> <span class="key">h</span></td><td class="action">Move window left</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Shift</span> <span class="key">j</span></td><td class="action">Move window down</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Shift</span> <span class="key">k</span></td><td class="action">Move window up</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Shift</span> <span class="key">l</span></td><td class="action">Move window right</td></tr>
+    </table>
+
+    <div class="section-title">Layout &amp; Resize</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Alt</span> <span class="key">e</span></td><td class="action">Tiles layout</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">s</span></td><td class="action">Vertical accordion</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">w</span></td><td class="action">Horizontal accordion</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">/</span></td><td class="action">Toggle tiles H/V</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Space</span></td><td class="action">Toggle floating/tiling</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">f</span></td><td class="action">MacOS native fullscreen</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Shift</span> <span class="key">-</span> / <span class="key">=</span></td><td class="action">Resize smart &minus;50 / +50</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- KITTY -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x2387;</span> Kitty &mdash; Terminal</div>
+  <div class="card-body">
+    <div class="tool-desc">GPU-accelerated terminal. Font: FiraCode Nerd Font 16pt &middot; Theme: Catppuccin Frappe</div>
+
+    <div class="section-title">Tabs</div>
+    <table class="shortcut-table">
+      <tr><th>Keys</th><th>Action</th></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">t</span></td><td class="action">New tab</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">q</span></td><td class="action">Close tab</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">Right</span> / <span class="key">Left</span></td><td class="action">Next / Previous tab</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Tab</span> / <span class="key">Ctrl</span> <span class="key">Shift</span> <span class="key">Tab</span></td><td class="action">Next / Previous tab</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Alt</span> <span class="key">1-6</span></td><td class="action">Go to tab 1-6</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">.</span> / <span class="key">,</span></td><td class="action">Move tab forward / backward</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">y</span></td><td class="action">Set tab title</td></tr>
+    </table>
+
+    <div class="section-title">Windows</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Cmd</span> <span class="key">d</span></td><td class="action">New window</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">w</span></td><td class="action">Close window</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">[</span> / <span class="key">]</span></td><td class="action">Previous / Next window</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">Enter</span></td><td class="action">New window (alt)</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">n</span></td><td class="action">New OS window</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">r</span></td><td class="action">Start resizing window</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">f</span> / <span class="key">b</span></td><td class="action">Move window forward / backward</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">`</span></td><td class="action">Move window to top</td></tr>
+    </table>
+
+    <div class="section-title">Layout</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">l</span></td><td class="action">Next layout</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">p</span></td><td class="action">Last used layout</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Alt</span> <span class="key">t</span></td><td class="action">Tall layout</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Alt</span> <span class="key">s</span></td><td class="action">Stack layout</td></tr>
+    </table>
+
+    <div class="section-title">Scrolling &amp; Clipboard</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">c</span></td><td class="action">Copy to clipboard</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">v</span> / <span class="key">s</span></td><td class="action">Paste from clipboard / selection</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">Up</span> / <span class="key">Down</span></td><td class="action">Scroll line up / down</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">k</span> / <span class="key">j</span></td><td class="action">Scroll line up / down (vim)</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">PgUp</span></td><td class="action">Scroll page up</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">Home</span> / <span class="key">End</span></td><td class="action">Scroll to top / bottom</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">e</span></td><td class="action">Open URL with hints</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- GHOSTTY -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x1F4BB;</span> Ghostty &mdash; Terminal</div>
+  <div class="card-body">
+    <div class="tool-desc">Modern GPU-accelerated terminal emulator.</div>
+
+    <div class="section-title">Tabs</div>
+    <table class="shortcut-table">
+      <tr><th>Keys</th><th>Action</th></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">t</span></td><td class="action">New tab</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Alt</span> <span class="key">w</span></td><td class="action">Close tab</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Tab</span></td><td class="action">Next tab</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Shift</span> <span class="key">Tab</span></td><td class="action">Previous tab</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Shift</span> <span class="key">[</span> / <span class="key">]</span></td><td class="action">Previous / Next tab</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">1-8</span></td><td class="action">Go to tab 1-8</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">9</span></td><td class="action">Go to last tab</td></tr>
+    </table>
+
+    <div class="section-title">Splits</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Cmd</span> <span class="key">d</span></td><td class="action">New split right</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Shift</span> <span class="key">d</span></td><td class="action">New split down</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Alt</span> <span class="key">h/j/k/l</span></td><td class="action">Go to split (vim)</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">[</span> / <span class="key">]</span></td><td class="action">Previous / Next split</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Shift</span> <span class="key">Enter</span></td><td class="action">Toggle split zoom</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Ctrl</span> <span class="key">h/j/k/l</span></td><td class="action">Resize split by 10</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Ctrl</span> <span class="key">=</span></td><td class="action">Equalize splits</td></tr>
+    </table>
+
+    <div class="section-title">Window</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Cmd</span> <span class="key">n</span></td><td class="action">New window</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">w</span></td><td class="action">Close surface</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Shift</span> <span class="key">w</span></td><td class="action">Close window</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Enter</span></td><td class="action">Toggle fullscreen</td></tr>
+    </table>
+
+    <div class="section-title">Text &amp; Font</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Cmd</span> <span class="key">c</span> / <span class="key">v</span></td><td class="action">Copy / Paste</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">=</span> / <span class="key">-</span></td><td class="action">Increase / Decrease font</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">0</span></td><td class="action">Reset font size</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">,</span></td><td class="action">Open config</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Shift</span> <span class="key">,</span></td><td class="action">Reload config</td></tr>
+    </table>
+
+    <div class="section-title">Navigation</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Cmd</span> <span class="key">PgUp</span> / <span class="key">PgDn</span></td><td class="action">Scroll page up / down</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Home</span> / <span class="key">End</span></td><td class="action">Scroll to top / bottom</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Up</span> / <span class="key">Down</span></td><td class="action">Jump to prev / next prompt</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Left</span> / <span class="key">Right</span></td><td class="action">Start / End of line</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Left</span> / <span class="key">Right</span></td><td class="action">Back / Forward a word</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Backspace</span></td><td class="action">Clear line</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TMUX -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x2500;</span> tmux &mdash; Terminal Multiplexer</div>
+  <div class="card-body">
+    <div class="tool-desc">Prefix: <span class="key" style="font-size:11px">Ctrl-b</span> &middot; Vi-mode &middot; Mouse on</div>
+
+    <div class="section-title">Pane Management</div>
+    <table class="shortcut-table">
+      <tr><th>Keys</th><th>Action</th></tr>
+      <tr><td><span class="key mod">Prefix</span> <span class="key">v</span></td><td class="action">Split horizontally</td></tr>
+      <tr><td><span class="key mod">Prefix</span> <span class="key">s</span></td><td class="action">Split vertically</td></tr>
+      <tr><td><span class="key mod">Prefix</span> <span class="key">x</span></td><td class="action">Kill pane</td></tr>
+      <tr><td><span class="key mod">Prefix</span> <span class="key">h/j/k/l</span></td><td class="action">Select pane (vim)</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">h/j/k/l</span></td><td class="action">Smart select pane (passthru to vim)</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">\</span></td><td class="action">Select previous pane (smart)</td></tr>
+      <tr><td><span class="key mod">Ctrl</span> <span class="key">Space</span></td><td class="action">Select next pane (smart)</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">h/j/k/l</span></td><td class="action">Resize pane by 2</td></tr>
+    </table>
+
+    <div class="section-title">Copy Mode (Vi)</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key">Escape</span></td><td class="action">Enter copy mode</td></tr>
+      <tr><td><span class="key">v</span> <span class="dim">(in copy mode)</span></td><td class="action">Begin selection</td></tr>
+      <tr><td><span class="key">y</span> <span class="dim">(in copy mode)</span></td><td class="action">Copy to clipboard</td></tr>
+      <tr><td><span class="key">V</span> <span class="dim">(in copy mode)</span></td><td class="action">Rectangle toggle</td></tr>
+      <tr><td><span class="key">Escape</span> <span class="dim">(in copy mode)</span></td><td class="action">Cancel</td></tr>
+    </table>
+
+    <div class="section-title">Other</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Prefix</span> <span class="key">r</span></td><td class="action">Reload tmux config</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ZSH ALIASES -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x1F42F;</span> Zsh Aliases</div>
+  <div class="card-body">
+
+    <div class="section-title">Navigation &amp; General</div>
+    <table class="alias-table">
+      <tr><th>Alias</th><th>Command</th></tr>
+      <tr><td class="alias">c</td><td class="cmd">clear</td></tr>
+      <tr><td class="alias">h</td><td class="cmd">history</td></tr>
+      <tr><td class="alias">hg &lt;term&gt;</td><td class="cmd">history | grep -i</td></tr>
+      <tr><td class="alias">path</td><td class="cmd">tr ":" "\n" &lt;&lt;&lt; "$PATH"</td></tr>
+      <tr><td class="alias">1d &ndash; 5d</td><td class="cmd">cd .. &times; N</td></tr>
+      <tr><td class="alias">mkdir</td><td class="cmd">mkdir -pv</td></tr>
+      <tr><td class="alias">untar</td><td class="cmd">tar -zxvf</td></tr>
+      <tr><td class="alias">tar</td><td class="cmd">tar -czvf</td></tr>
+      <tr><td class="alias">vim</td><td class="cmd">nvim</td></tr>
+      <tr><td class="alias">py</td><td class="cmd">python3</td></tr>
+      <tr><td class="alias">brewup</td><td class="cmd">brew update &amp;&amp; brew upgrade</td></tr>
+    </table>
+
+    <div class="section-title">Listing</div>
+    <table class="alias-table">
+      <tr><th>Alias</th><th>Command</th></tr>
+      <tr><td class="alias">ls</td><td class="cmd">ls -GFh</td></tr>
+      <tr><td class="alias">ll</td><td class="cmd">ls -laG</td></tr>
+      <tr><td class="alias">la</td><td class="cmd">ls -AG</td></tr>
+      <tr><td class="alias">lt</td><td class="cmd">ls -ltG</td></tr>
+      <tr><td class="alias">ld</td><td class="cmd">ls -dG -- */(N)</td></tr>
+      <tr><td class="alias">lu</td><td class="cmd">du -sh * | sort -h</td></tr>
+      <tr><td class="alias">lc</td><td class="cmd">find . -type f | wc -l</td></tr>
+    </table>
+
+    <div class="section-title">Git</div>
+    <table class="alias-table">
+      <tr><th>Alias</th><th>Command</th></tr>
+      <tr><td class="alias">gs</td><td class="cmd">git status</td></tr>
+      <tr><td class="alias">gb</td><td class="cmd">git branch</td></tr>
+      <tr><td class="alias">gl</td><td class="cmd">git log --oneline</td></tr>
+      <tr><td class="alias">gc</td><td class="cmd">git commit</td></tr>
+      <tr><td class="alias">ga</td><td class="cmd">git add</td></tr>
+      <tr><td class="alias">gco</td><td class="cmd">git checkout</td></tr>
+      <tr><td class="alias">gd</td><td class="cmd">git diff -w</td></tr>
+      <tr><td class="alias">gdc</td><td class="cmd">git diff --cached -w</td></tr>
+      <tr><td class="alias">gg</td><td class="cmd">git grep</td></tr>
+      <tr><td class="alias">gpl</td><td class="cmd">git pull</td></tr>
+      <tr><td class="alias">gpom</td><td class="cmd">git push origin main</td></tr>
+      <tr><td class="alias">grh</td><td class="cmd">git reset HEAD</td></tr>
+    </table>
+
+    <div class="section-title">App Launchers</div>
+    <table class="alias-table">
+      <tr><th>Alias</th><th>App</th></tr>
+      <tr><td class="alias">mrdp</td><td class="cmd">Microsoft Remote Desktop</td></tr>
+      <tr><td class="alias">notion</td><td class="cmd">Notion</td></tr>
+      <tr><td class="alias">burp</td><td class="cmd">Burp Suite</td></tr>
+      <tr><td class="alias">postman</td><td class="cmd">Postman</td></tr>
+      <tr><td class="alias">fusion</td><td class="cmd">VMware Fusion</td></tr>
+      <tr><td class="alias">vnc</td><td class="cmd">VNC Viewer</td></tr>
+      <tr><td class="alias">zoom</td><td class="cmd">Zoom</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- NEOVIM -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x2702;</span> Neovim &mdash; Editor (LazyVim)</div>
+  <div class="card-body">
+    <div class="tool-desc">Leader: <span class="key" style="font-size:11px">Space</span> &middot; LocalLeader: <span class="key" style="font-size:11px">\</span></div>
+
+    <div class="section-title">Telescope</div>
+    <table class="shortcut-table">
+      <tr><th>Keys</th><th>Action</th></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">f</span> <span class="key">f</span></td><td class="action">Find files</td></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">f</span> <span class="key">g</span></td><td class="action">Live grep</td></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">f</span> <span class="key">b</span></td><td class="action">Buffers</td></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">f</span> <span class="key">h</span></td><td class="action">Help tags</td></tr>
+    </table>
+
+    <div class="section-title">Trouble (Diagnostics)</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Space</span> <span class="key">x</span> <span class="key">x</span></td><td class="action">Toggle diagnostics</td></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">x</span> <span class="key">X</span></td><td class="action">Toggle buffer diagnostics</td></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">c</span> <span class="key">s</span></td><td class="action">Toggle symbols</td></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">c</span> <span class="key">l</span></td><td class="action">LSP definitions/references</td></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">x</span> <span class="key">L</span></td><td class="action">Location list</td></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">x</span> <span class="key">Q</span></td><td class="action">Quickfix list</td></tr>
+      <tr><td><span class="key mod">Space</span> <span class="key">p</span> <span class="key">d</span></td><td class="action">Preview diagnostics (float)</td></tr>
+    </table>
+
+    <div class="section-title">Which-key</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Space</span> <span class="key">?</span></td><td class="action">Show buffer-local keymaps</td></tr>
+    </table>
+
+    <div class="section-title">Core Settings</div>
+    <table class="shortcut-table">
+      <tr><td colspan="2" class="action" style="color:var(--subtext0); font-size:11px">
+        relativenumber &middot; tabs: 2 &middot; clipboard=unnamedplus &middot; colorscheme: Catppuccin (Macchiato)
+      </td></tr>
+    </table>
+
+    <div class="section-title">LSP Support</div>
+    <div style="color:var(--subtext0); font-size:11px; line-height:1.7; padding:4px 0;">
+      lua_ls &middot; ts_ls &middot; gopls &middot; html &middot; cssls &middot; rust_analyzer &middot; pyright &middot; intelephense &middot; clangd
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SKHD / SKETCHYBAR / WORKSPACES -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x2699;</span> skhd &mdash; Hotkey Daemon</div>
+  <div class="card-body">
+    <div class="tool-desc">Disables macOS defaults &amp; adds app launchers.</div>
+
+    <div class="section-title">App Launchers</div>
+    <table class="shortcut-table">
+      <tr><th>Keys</th><th>Action</th></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Shift</span> <span class="key">t</span></td><td class="action">Open Kitty</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Shift</span> <span class="key">b</span></td><td class="action">Open Microsoft Edge</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Shift</span> <span class="key">s</span></td><td class="action">Open Spotify</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Shift</span> <span class="key">m</span></td><td class="action">Open Messages</td></tr>
+    </table>
+
+    <div class="section-title">Disabled macOS Shortcuts</div>
+    <table class="shortcut-table">
+      <tr><td><span class="key mod">Cmd</span> <span class="key">w</span></td><td class="action">Close window (disabled)</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">h</span></td><td class="action">Hide app (disabled)</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">m</span></td><td class="action">Minimize (disabled)</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Tab</span></td><td class="action">App switcher (disabled)</td></tr>
+      <tr><td><span class="key mod">Cmd</span> <span class="key">Alt</span> <span class="key">d</span></td><td class="action">Toggle Dock (disabled)</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">Tab</span></td><td class="action">App switching (disabled)</td></tr>
+      <tr><td><span class="key mod">Alt</span> <span class="key">h/j/k/l</span></td><td class="action">Cursor movement (disabled)</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><span class="icon">&#x1F4CA;</span> Sketchybar &mdash; Status Bar</div>
+  <div class="card-body">
+    <div class="tool-desc">Highly customizable macOS status bar. Theme: Catppuccin.</div>
+    <table class="shortcut-table">
+      <tr><th>Widget</th><th>Click Action</th></tr>
+      <tr><td>Apple logo</td><td class="action">Open macOS menu bar</td></tr>
+      <tr><td>Front app label</td><td class="action">Aerospace: next workspace</td></tr>
+      <tr><td>CPU</td><td class="action">Open Activity Monitor</td></tr>
+      <tr><td>Volume</td><td class="action">Toggle volume popup (left) &middot; Sound prefs (right) &middot; Scroll to adjust</td></tr>
+      <tr><td>Battery</td><td class="action">Toggle time remaining popup</td></tr>
+      <tr><td>Media (Now Playing)</td><td class="action">Toggle prev/play/next controls</td></tr>
+      <tr><td>WiFi</td><td class="action">Toggle network info (click detail to copy)</td></tr>
+      <tr><td>Workspace items</td><td class="action">Aerospace: switch to workspace</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- WORKSPACE LAYOUT -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x1F4D1;</span> Workspace Layout</div>
+  <div class="card-body">
+    <div class="tool-desc">Aerospace workspace-to-monitor assignments.</div>
+    <table class="shortcut-table">
+      <tr><th>Workspace</th><th>Monitor</th></tr>
+      <tr><td><span class="key">A</span></td><td class="action">Built-in Retina Display (laptop)</td></tr>
+      <tr><td><span class="key">B</span></td><td class="action">DELL U3417W (ultrawide)</td></tr>
+      <tr><td><span class="key">1-9</span></td><td class="action">Flexible</td></tr>
+    </table>
+
+    <div class="section-title">Auto-Float Rules</div>
+    <div style="color:var(--subtext0); font-size:11px; padding:4px 0; line-height:1.7;">
+      SFSymbols &middot; Finder &middot; Microsoft AutoUpdate &middot; Activity Monitor &middot; ImageOptim &middot; AppCleaner
+    </div>
+    <div class="section-title">Always Tiled</div>
+    <div style="color:var(--subtext0); font-size:11px; padding:4px 0; line-height:1.7;">
+      Ghostty (com.mitchellh.ghostty)
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BREWFILE / TOOLS -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x1F37A;</span> Brewfile &mdash; Package Manifest</div>
+  <div class="card-body">
+
+    <div class="section-title">CLI Tools (Active)</div>
+    <div style="display:flex; flex-wrap:wrap; gap:2px 8px; padding:4px 0;">
+      <span class="key">coreutils</span>
+      <span class="key">git</span>
+      <span class="key">neovim</span>
+      <span class="key">starship</span>
+      <span class="key">stow</span>
+      <span class="key">tmux</span>
+      <span class="key">wget</span>
+      <span class="key">lazygit</span>
+      <span class="key">lua</span>
+      <span class="key">ripgrep</span>
+      <span class="key">fd</span>
+      <span class="key">fzf</span>
+      <span class="key">jq</span>
+      <span class="key">yq</span>
+      <span class="key">neofetch</span>
+      <span class="key">borders</span>
+      <span class="key">sketchybar</span>
+      <span class="key">zsh-autosuggestions</span>
+      <span class="key">zsh-syntax-highlighting</span>
+    </div>
+
+    <div class="section-title">GUI Apps (Active)</div>
+    <div style="display:flex; flex-wrap:wrap; gap:2px 8px; padding:4px 0;">
+      <span class="key">aerospace</span>
+      <span class="key">kitty</span>
+      <span class="key">ghostty</span>
+      <span class="key">sf-symbols</span>
+      <span class="key">bitwarden</span>
+    </div>
+
+    <div class="section-title">Fonts</div>
+    <div style="display:flex; flex-wrap:wrap; gap:2px 8px; padding:4px 0;">
+      <span class="key">FiraCode Nerd Font</span>
+      <span class="key">Hack Nerd Font</span>
+      <span class="key">GohuFont Nerd</span>
+      <span class="key">HeavyData Nerd</span>
+      <span class="key">SF Pro</span>
+      <span class="key">Powerline Symbols</span>
+      <span class="key">Sketchybar App Font</span>
+      <span class="key">Awesome Terminal Fonts</span>
+    </div>
+
+    <div class="section-title">Neovim Plugins</div>
+    <div style="display:flex; flex-wrap:wrap; gap:2px 8px; padding:4px 0;">
+      <span class="key">Telescope</span>
+      <span class="key">Trouble</span>
+      <span class="key">Which-key</span>
+      <span class="key">Lualine</span>
+      <span class="key">Treesitter</span>
+      <span class="key">LSP</span>
+      <span class="key">Catppuccin</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SETUP / SCRIPTS -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x1F527;</span> Setup &amp; Scripts</div>
+  <div class="card-body">
+
+    <div class="section-title">Quick Install</div>
+    <div style="display:flex; gap:6px; flex-wrap:wrap; padding:4px 0;">
+      <code style="background:var(--surface0); padding:4px 10px; border-radius:4px; font-size:11px; color:var(--green);">
+        cd ~/dotfiles/scripts &amp;&amp; ./setup.sh
+      </code>
+    </div>
+
+    <div class="section-title">Available Scripts</div>
+    <table class="shortcut-table">
+      <tr><th>Script</th><th>Purpose</th></tr>
+      <tr><td><code style="color:var(--teal);">setup.sh</code></td><td class="action">Full automated bootstrap (Homebrew, Stow, services)</td></tr>
+      <tr><td><code style="color:var(--teal);">uninstall.sh</code></td><td class="action">Complete teardown (removes brew, dotfiles, configs)</td></tr>
+      <tr><td><code style="color:var(--teal);">aerospace-setup.sh</code></td><td class="action">Install &amp; configure Aerospace + login item</td></tr>
+      <tr><td><code style="color:var(--teal);">stow.sh</code></td><td class="action">Re-stow all dotfile symlinks</td></tr>
+    </table>
+
+    <div class="section-title">Structure (GNU Stow)</div>
+    <table class="alias-table">
+      <tr><th>Package</th><th>Symlinked To</th></tr>
+      <tr><td class="alias">config/</td><td class="cmd">~/.config/</td></tr>
+      <tr><td class="alias">zsh/</td><td class="cmd">~/</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SKETCHYBAR ARCHITECTURE -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x1F9E0;</span> Sketchybar Internals</div>
+  <div class="card-body">
+    <div class="tool-desc">Lua-based configuration in <code style="font-size:10px">~/.config/sketchybar/</code></div>
+    <table class="alias-table">
+      <tr><th>File</th><th>Purpose</th></tr>
+      <tr><td class="alias">sketchybarrc</td><td class="cmd">Entry point, loads all modules</td></tr>
+      <tr><td class="alias">init.lua</td><td class="cmd">Requires all submodules</td></tr>
+      <tr><td class="alias">bar.lua</td><td class="cmd">Bar geometry, position, height</td></tr>
+      <tr><td class="alias">appearance.lua</td><td class="cmd">Colors (Catppuccin), fonts, padding</td></tr>
+      <tr><td class="alias">settings.lua</td><td class="cmd">App icons, refresh intervals</td></tr>
+      <tr><td class="alias">fonts.lua</td><td class="cmd">Font definitions (SF Pro, FiraCode, Icon fonts)</td></tr>
+      <tr><td class="alias">icons.lua</td><td class="cmd">Icon mappings per-app</td></tr>
+      <tr><td class="alias">items/</td><td class="cmd">Per-widget: Apple, battery, volume, wifi, media, workspace, cpu</td></tr>
+      <tr><td class="alias">helpers/</td><td class="cmd">Popup helpers, utilities</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- BORDERS -->
+<!-- ============================================================ -->
+<div class="card">
+  <div class="card-header"><span class="icon">&#x25AD;</span> JankyBorders &mdash; Window Borders</div>
+  <div class="card-body">
+    <table class="shortcut-table">
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Style</td><td class="action">round</td></tr>
+      <tr><td>Width</td><td class="action">6.0</td></tr>
+      <tr><td>Active color</td><td class="action"><span style="color:var(--red);">&#x25CF;</span> #FFEB212E (red)</td></tr>
+      <tr><td>Inactive color</td><td class="action"><span style="color:var(--surface1);">&#x25CF;</span> #FF414550</td></tr>
+    </table>
+  </div>
+</div>
+
+</div><!-- /grid -->
+
+</div><!-- /container -->
+</body>
+</html>
