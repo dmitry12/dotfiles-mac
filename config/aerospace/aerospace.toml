@@ -211,7 +211,7 @@ run = ['move-node-to-workspace 4']
 # Move to Workspace 5 - Gaming
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'NVIDIA|Boosteroid'
+if.app-name-regex-substring = 'NVIDIA|Boosteroid|Steam|Civilization'
 run = ['move-node-to-workspace 5']
 
 # Move to Workspace 6 - Work/Office Apps
@@ -219,6 +219,12 @@ run = ['move-node-to-workspace 5']
 [[on-window-detected]]
 if.app-name-regex-substring = 'Microsoft Edge|Microsoft Teams|Microsoft Outlook'
 run = ['move-node-to-workspace 6']
+
+# Move to Workspace 9 - System/Utilities
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'System Settings|Tailscale'
+run = ['move-node-to-workspace 9']
 
 # Move to Workspace B - Messaging Apps.
 
