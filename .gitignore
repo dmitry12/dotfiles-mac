@@ -20,3 +20,6 @@ nvim/lazy-lock.json
 
 # Remove Apple Default files
 .DS_Store
+
+# tmux plugin clones (managed by TPM at runtime)
+config/tmux/plugins/
